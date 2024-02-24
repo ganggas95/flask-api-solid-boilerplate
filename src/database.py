@@ -4,7 +4,7 @@ from typing import Union
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-from core.types.db_session import ScoppedSession
+from core.types.db_session import ScopedSession
 
 
 class Database:
@@ -36,7 +36,7 @@ class Database:
         Base.metadata.drop_all(self._engine)
 
     @cached_property
-    def session(self) -> ScoppedSession:
+    def session(self) -> ScopedSession:
         """
         A property decorator that caches the result of the session method
             and returns the scoped session.
