@@ -1,6 +1,14 @@
 {
-    "editor.fontFamily": "'Fira Code', monospace",
-    "python.analysis.extraPaths": [
-        "./src"
-    ]
+  "editor.fontFamily": "'Fira Code', monospace",
+  "python.autoComplete.extraPaths": ["./src", "../src"],
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.extraPaths": ["./src", "../src"],
+  "editor.defaultFormatter": "ms-python.black-formatter",
+  "black-formatter.args": ["--line-length", "85"],
+  "black-formatter.path": [
+    "/Users/nizar/Library/Caches/pypoetry/virtualenvs/flask-api-solid-boilerplate-x57-1Bgw-py3.11/bin/black"
+  ],
+  "black-formatter.interpreter": [
+    "/Users/nizar/Library/Caches/pypoetry/virtualenvs/flask-api-solid-boilerplate-x57-1Bgw-py3.11/bin/python"
+  ]
 }
