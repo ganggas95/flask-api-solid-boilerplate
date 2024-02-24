@@ -1,0 +1,8 @@
+{
+  "include": "src",
+  "plugins": ["pyright-flask-plugin"],
+  "reportMissingImports": "error",
+  "reportMissingTypeStubs": "warning",
+  "pythonVersion": "3.11",
+  "pythonPlatform": "Linux"
+}

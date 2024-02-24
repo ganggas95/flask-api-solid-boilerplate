@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "flask-api-solid-boilerplate"
+version = "0.0.1"
+description = "This repository provides a boilerplate for building a RESTful API using Flask with a focus on SOLID principles."
+authors = ["ganggas <subhannizar25@gmail.comß>"]
+license = "MIT license"
+readme = "README.md"
+
+[tool.pyright]
+include = ["src"]
+pythonVersion = "3.11"
+exclude = ["**/__pycache__"]
+
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask-restx = "^1.3.0"
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.9"
+flask-celeryext = "^0.5.0"
+autopep8 = "^2.0.4"
+
+[tool.poetry.group.dev.dependencies]
+Flask = "^3.0.2"
+SQLAlchemy = "^2.0.27"
+dependency-injector = "^4.41.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
