@@ -2,12 +2,15 @@ import unittest
 
 from flask import Flask
 
-from src.factory import create_flask
+from src.factory import create_app
 
 
 class TestCreateFlask(unittest.TestCase):
-    def create_app(self):
-        return create_flask()
+    app: Flask = None
+
+    def setUp(self) -> None:
+        self.app = create_app()
+        return super().setUp()
 
     def test_instance(self):
         self.assertIsInstance(self.app, Flask)

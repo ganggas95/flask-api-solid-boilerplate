@@ -7,7 +7,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(1, current_dir)
 
 
-def create_flask() -> Flask:
+def create_app() -> Flask:
     """
     Create and return a new Flask application.
 
@@ -18,5 +18,5 @@ def create_flask() -> Flask:
     return app
 
 
-APP = create_flask()
+APP = create_app()
 context = APP.app_context()
