@@ -1,11 +1,11 @@
-from core.controller import BaseController
 from core.exceptions import BaseException
+from core.mixins.controller_mixin import BaseControllerMixin
 from core.types.http_status import HttpStatusCode
 
 
 def test_response(context):
     # Setup
-    controller = BaseController()
+    controller = BaseControllerMixin()
     controller.serializer_class = None
     data = {"key": "value"}
     message = "Test message"
@@ -22,7 +22,7 @@ def test_response(context):
 
 def test_error_response(context):
     # Setup
-    controller = BaseController()
+    controller = BaseControllerMixin()
     error = BaseException(code=HttpStatusCode.BAD_REQUEST, errors="Test error")
     error.code = 500
     error.description = "Test error description"

@@ -10,7 +10,7 @@ from core.types.db_session import ScopedSession
 from core.types.http_status import HttpStatusCode
 
 
-class BaseController:
+class BaseControllerMixin:
     serializer_class: Union[Schema, None] = None
 
     @inject
