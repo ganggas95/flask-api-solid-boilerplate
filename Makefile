@@ -2,4 +2,4 @@ run-dev:
 	python -B app.py
 
 run-test:
-	pytest -vv **/tests
+	pytest -vv **/__tests__/

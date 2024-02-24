@@ -51,7 +51,7 @@ class BaseController:
         response = make_response(payload, status)
         # Close all db sessions
         if db_session:
-            db_session.close_all()
+            db_session.close()
         return response
 
     @inject
@@ -83,7 +83,7 @@ class BaseController:
         # Rollback the transaction and Close all db sessions
         if db_session:
             db_session.rollback()
-            db_session.close_all()
+            db_session.close()
         if isinstance(error, BaseException):
             return self.response(
                 status=error.code, message=error.description, errors=error.errors
