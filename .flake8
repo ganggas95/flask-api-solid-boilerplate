@@ -1,0 +1,3 @@
+[flake8]
+mak-line-length=100
+exclude = .tox,.git,*/migrations/*,*/static/CACHE/*,docs,node_modules,venv
