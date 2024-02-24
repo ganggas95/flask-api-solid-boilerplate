@@ -5,6 +5,9 @@ from envs import DATABASE_CONNECT_ARGS, DATABASE_URL
 
 
 class DIContainer(containers.DeclarativeContainer):
+    wiring_config = containers.WiringConfiguration(
+        modules=["core"], packages=["core"]
+    )
     config = providers.Configuration()
 
     db = providers.Singleton(

@@ -12,6 +12,11 @@ def app():
 
 
 @pytest.fixture
+def context(app: Flask):
+    return app.app_context()
+
+
+@pytest.fixture
 def client(app: Flask):
     return app.test_client()
 
