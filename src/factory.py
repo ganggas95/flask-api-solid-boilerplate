@@ -4,6 +4,8 @@ import sys
 current_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.insert(1, current_dir)
 
+from blueprints import register_blueprints  # noqa;
+from cli import init_cli  # noqa;
 from core.flask import FlaskWithContainer  # noqa;
 
 
@@ -28,6 +30,8 @@ def create_app() -> FlaskWithContainer:
     """
     app = FlaskWithContainer(__name__)
     init_healty_route(app)
+    register_blueprints(app)
+    init_cli(app)
     return app
 
 

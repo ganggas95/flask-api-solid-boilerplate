@@ -16,34 +16,33 @@ class BaseRepositoryMixin(ABC):
         self.db_session = db_session
 
     def commit(self) -> None:
-        self.db_session.commit
+        self.db_session.commit()
 
     def rollback(self) -> None:
         self.db_session.rollback()
 
-    def save(self) -> None:
-        self.db_session.add(self)
+    def save(self, entity: Any) -> None:
+        self.db_session.add(entity)
 
     def close(self) -> None:
         self.db_session.close()
 
+    def delete(self, entity: Any) -> None:
+        self.db_session.delete(entity)
+
     @cached_property
     def query(self) -> Query:
+        if self.model_class is None:
+            raise Exception("model_class must be set")
         return self.db_session.query(self.model_class)
 
-
-class BaseRepositoryWithCRUDMixin(BaseRepositoryMixin, ABC):
     @abstractmethod
     def get(self, id: int) -> Union[Any, None]: ...
 
     @abstractmethod
     def get_all(self) -> List[Any]: ...
 
-    @abstractmethod
-    def create(self, data: Any) -> Any: ...
-
-    @abstractmethod
-    def update(self, id: int, data: Any) -> Any: ...
-
-    @abstractmethod
-    def delete(self, id: int) -> Any: ...
+    def create(self, data: Any) -> Any:
+        if self.model_class is None:
+            raise Exception("model_class must be set")
+        return self.model_class(**data)

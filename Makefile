@@ -3,3 +3,6 @@ run-dev:
 
 run-test:
 	pytest -vv **/__tests__/
+
+run-create-db:
+	FLASK_APP=app.py && flask create-db
