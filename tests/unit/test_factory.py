@@ -1,18 +1,9 @@
-import unittest
-from typing import Union
-
 from flask import Flask
 
-from core.flask import FlaskWithContainer
-from src.factory import create_app
+from src.tests import BaseTestCase
 
 
-class TestCreateFlask(unittest.TestCase):
-    app: Union[FlaskWithContainer, None] = None
-
-    def setUp(self) -> None:
-        self.app = create_app()
-        return super().setUp()
+class TestCreateFlask(BaseTestCase):
 
     def test_instance(self):
         self.assertIsInstance(self.app, Flask)

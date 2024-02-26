@@ -1,3 +1,5 @@
+# Flake8: noqa;
+
 import pytest
 from flask import Flask
 
