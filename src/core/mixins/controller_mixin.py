@@ -52,9 +52,7 @@ class BaseControllerMixin:
         """
         if self.serializer_class:
             data = self.serializer_class.dump(data)
-        payload = jsonify(
-            {"data": data, "message": message, "errors": errors}
-        )
+        payload = jsonify({"data": data, "message": message, "errors": errors})
         response = make_response(payload, status)
         # Close all db sessions
         if db_session:
