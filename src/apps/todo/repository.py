@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from apps.todo.entity.entity import TodoEntity
+from apps.todo.entity import TodoEntity
 from core.mixins.repository_mixin import BaseRepositoryMixin
 
 
@@ -8,7 +8,9 @@ class TodoRepository(BaseRepositoryMixin):
     model_class = TodoEntity
 
     def get_all(self) -> List[TodoEntity]:
-        return self.query.all()
+        with self.db_session as session:
+            return session.execute(self.select).scalars().all()
 
     def get(self, id: int) -> Union[TodoEntity, None]:
-        return self.query.get(id)
+        with self.db_session as session:
+            return session.get(self.model_class, id)

@@ -1,8 +1,8 @@
 from typing import List, Union
 
-from apps.todo.entity.dto import TodoDto
-from apps.todo.entity.entity import TodoEntity
+from apps.todo.entity import TodoEntity
 from apps.todo.repository import TodoRepository
+from apps.todo.schema.dto import TodoDto
 from core.exceptions import BaseException
 from core.types.http_status import HttpStatusCode
 
@@ -22,19 +22,16 @@ class TodoService:
 
     def add_todo(self, todo_dto: TodoDto) -> TodoEntity:
         todo = TodoEntity(**todo_dto)
-        self.repository.save(todo)
-        self.repository.commit()
+        self.repository.save(todo, commit=True)
         return todo
 
     def update_todo(self, id: int, todo_dto: TodoDto) -> TodoEntity:
         todo = self.get(id, raise_notfound=True)
         todo.title = todo_dto.get("title", todo.title)
         todo.completed = todo_dto.get("completed", todo.completed)
-        self.repository.save(todo)
-        self.repository.commit()
+        self.repository.save(todo, commit=True)
         return todo
 
     def delete_todo(self, id: int) -> None:
         todo = self.get(id, raise_notfound=True)
-        self.repository.delete(todo)
-        self.repository.commit()
+        self.repository.delete(todo, commit=True)

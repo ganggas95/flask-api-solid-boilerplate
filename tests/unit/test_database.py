@@ -34,28 +34,30 @@ class TestDatabase(unittest.TestCase):
     @patch("src.database.create_engine")
     def test_init_create_engine(self, mock_create_engine):
         db = Database(database_url)
-        self.assertEqual(db._database_url, database_url)
-        self.assertIsNotNone(db._engine)
-        mock_create_engine.assert_called_with(database_url, connect_args={}, **{})
+        self.assertEqual(db.database_url, database_url)
+        self.assertIsNotNone(db.engine)
+        mock_create_engine.assert_called_with(
+            database_url, connect_args={}, echo=True, **{}
+        )
 
     @patch("src.database.sessionmaker")
     def test_init_session_maker(self, mock_sessionmaker):
         db = Database(database_url)
-        self.assertEqual(db._database_url, database_url)
-        self.assertIsNotNone(db._engine)
+        self.assertEqual(db.database_url, database_url)
+        self.assertIsNotNone(db.engine)
         mock_sessionmaker.assert_called_with(
             autoflush=False,
             autocommit=False,
             expire_on_commit=True,
-            bind=db._engine,
+            bind=db.engine,
         )
 
     @patch("src.database.scoped_session")
     def test_init_scoped_session(self, mock_scoped_session):
         db = Database(database_url)
-        self.assertEqual(db._database_url, database_url)
-        self.assertIsNotNone(db._session_maker)
-        mock_scoped_session.assert_called_with(db._session_maker)
+        self.assertEqual(db.database_url, database_url)
+        self.assertIsNotNone(db.session_maker)
+        mock_scoped_session.assert_called_with(db.session_maker)
 
     def test_session(self):
         db = Database(database_url)

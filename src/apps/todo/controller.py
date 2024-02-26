@@ -6,12 +6,11 @@ from core.mixins.controller_mixin import (BaseControllerMixin,
                                           ControllerValidatorMixin)
 from core.types.http_status import HttpStatusCode
 
-from .schema.request import todo_create_model, todo_update_model
+from .schema.request import initilize_model
 
 namespace = Namespace("", description="Todo related operations", tags="Todo")
 
-create_model = namespace.model("CreateTodo", todo_create_model)
-update_model = namespace.model("UpdateTodo", todo_update_model)
+models = initilize_model(namespace)
 
 
 @namespace.route("/list", endpoint="list")
@@ -33,8 +32,8 @@ class ListTodoController(TodoControllerMixin, BaseControllerMixin):
 class CreateTodoController(TodoControllerMixin, ControllerValidatorMixin):
     serializer_class = TodoSerializers()
 
-    @namespace.doc(model=create_model, body=create_model)
-    @namespace.expect(create_model, validate=True)
+    @namespace.doc(model=models["create"], body=models["create"])
+    @namespace.expect(models["create"], validate=True)
     def post(self):
         try:
             todo = self._todo_service.add_todo(self.payload)
@@ -54,15 +53,16 @@ class DetailTodoController(TodoControllerMixin, ControllerValidatorMixin):
 
     def get(self, id):
         try:
+            todo = self._todo_service.get(id, raise_notfound=True)
             return self.response(
-                data=self._todo_service.get(id),
+                data=todo,
                 message="Todo retrieved successfully",
             )
         except Exception as e:
             return self.error_response(e)
 
-    @namespace.doc(model=update_model, body=update_model)
-    @namespace.expect(update_model)
+    @namespace.doc(model=models["update"], body=models["update"])
+    @namespace.expect(models["update"])
     def put(self, id):
         try:
             todo = self._todo_service.update_todo(id, self.payload)
